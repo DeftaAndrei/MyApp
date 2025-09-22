@@ -323,14 +323,6 @@ CREATE INDEX idx_orders_status ON orders(status);
 - [ ] ✅ Domain și DNS configurate
 - [ ] ✅ Mobile apps built și deployed
 
-## 🆘 SUPPORT
 
-Pentru probleme sau întrebări:
-- 📧 Email: support@your-domain.com
-- 💬 Discord: Your Discord Server
-- 📱 WhatsApp: +40 XXX XXX XXX
 
----
-
-**🎉 Succes cu platforma ta de vânzări! Să faci bani frumoși! 💰**
 
