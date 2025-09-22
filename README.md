@@ -9,7 +9,8 @@
 - **Componente reutilizabile** - Arhitectură modulară și scalabilă
 - **Temă dark VS Code** - Design familiar pentru dezvoltatori
 - **Docker support** - Dezvoltare în containere pentru consistență
-- **PostgreSQL** - Bază de date robustă (conform preferințelor)
+- **PostgreSQL** - Bază de date robustă
+- **SQL Lite** - cache intern device 
 - **Redis** - Caching și session management
 - **Hot Reload** - Dezvoltare rapidă cu actualizări live
 
