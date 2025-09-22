@@ -1,0 +1,151 @@
+# Docker Compose pentru Platformă de Vânzări
+# Arhitectură modernă cu servicii separate și optimizate
+
+version: '3.8'
+
+services:
+  # Backend API - Serviciul principal pentru logica de business
+  api:
+    build:
+      context: ./backend-api
+      dockerfile: Dockerfile
+    container_name: sales-api
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://sales_user:sales_pass_2024@postgres:5432/sales_platform
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=your-super-secure-jwt-secret-key-here-min-32-chars
+      - FRONTEND_URL=http://localhost:3001
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - sales-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "healthcheck.js"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # PostgreSQL Database - Dedicat doar pentru baza de date
+  postgres:
+    image: postgres:15-alpine
+    container_name: sales-postgres
+    environment:
+      POSTGRES_DB: sales_platform
+      POSTGRES_USER: sales_user
+      POSTGRES_PASSWORD: sales_pass_2024
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - sales-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sales_user -d sales_platform"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache - Pentru sesiuni și cache
+  redis:
+    image: redis:7-alpine
+    container_name: sales-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - sales-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # Nginx Reverse Proxy - Pentru serving static files și load balancing
+  nginx:
+    image: nginx:alpine
+    container_name: sales-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./frontend-web/build:/usr/share/nginx/html:ro
+    depends_on:
+      - api
+    networks:
+      - sales-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # React Native Metro Server - Doar pentru development
+  metro:
+    image: node:18-alpine
+    container_name: sales-metro
+    working_dir: /app
+    ports:
+      - "8081:8081"
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - REACT_NATIVE_PACKAGER_HOSTNAME=0.0.0.0
+      - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
+    networks:
+      - sales-network
+    command: sh -c "npm install && npm start"
+    profiles:
+      - development  # Rulează doar când e specificat explicit
+
+  # Adminer - Pentru managementul bazei de date (doar development)
+  adminer:
+    image: adminer:latest
+    container_name: sales-adminer
+    ports:
+      - "8080:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+      ADMINER_DESIGN: pepa-linha-dark
+    depends_on:
+      - postgres
+    networks:
+      - sales-network
+    restart: unless-stopped
+    profiles:
+      - development
+
+# Volume-uri persistente
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+# Rețea izolată pentru servicii
+networks:
+  sales-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
