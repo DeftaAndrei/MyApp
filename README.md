@@ -216,14 +216,5 @@ Configurare pentru React Native și TypeScript cu reguli stricte.
    docker-compose up --build
    ```
 
-## 📄 Licență
-
-Acest proiect este licențiat sub MIT License.
-
-## 🤝 Contribuții
-
-Contribuțiile sunt binevenite! Te rog să deschizi un issue înainte de a face modificări majore.
-
----
 
 **Creat cu ❤️ folosind React Native & TypeScript**
