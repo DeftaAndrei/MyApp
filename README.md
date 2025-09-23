@@ -46,73 +46,8 @@ MyApp/
 ```
 
 
-This is structure for my app now i make that
+Now i have a bigger infracstructure for thiss app 
 
-sales-platform-app/
-├── __tests__/                  # Unit and integration tests (e.g., for cart calculations)
-├── android/                    # Android-specific configs and builds
-├── ios/                        # iOS-specific configs and builds
-├── src/                        # Core application source code
-│   ├── features/               # Feature-based modules for sales functionalities
-│   │   ├── auth/               # Authentication (login, register, forgot password)
-│   │   │   ├── screens/        # e.g., LoginScreen.js, RegisterScreen.js
-│   │   │   ├── components/     # e.g., AuthForm.js, SocialLoginButton.js
-│   │   │   ├── services/       # e.g., authApi.js for API calls
-│   │   │   ├── hooks/          # e.g., useAuth.js for auth state
-│   │   │   └── types/          # TypeScript types for auth data
-│   │   ├── products/           # Product browsing and details
-│   │   │   ├── screens/        # e.g., ProductListScreen.js, ProductDetailScreen.js
-│   │   │   ├── components/     # e.g., ProductCard.js, SearchBar.js
-│   │   │   ├── services/       # e.g., productsApi.js for fetching inventory
-│   │   │   ├── hooks/          # e.g., useProducts.js for data fetching
-│   │   │   └── utils/          # e.g., formatPrice.js for currency handling
-│   │   ├── cart/               # Shopping cart management
-│   │   │   ├── screens/        # e.g., CartScreen.js
-│   │   │   ├── components/     # e.g., CartItem.js, TotalSummary.js
-│   │   │   ├── services/       # e.g., cartApi.js for updates
-│   │   │   └── store/          # e.g., cartSlice.js for Redux state
-│   │   ├── checkout/           # Payment and order placement
-│   │   │   ├── screens/        # e.g., CheckoutScreen.js, PaymentScreen.js
-│   │   │   ├── components/     # e.g., PaymentForm.js, AddressSelector.js
-│   │   │   ├── services/       # e.g., paymentApi.js integrating Stripe/PayPal
-│   │   │   └── hooks/          # e.g., useCheckout.js for validation
-│   │   ├── profile/            # User account and settings
-│   │   │   ├── screens/        # e.g., ProfileScreen.js, EditProfile.js
-│   │   │   ├── components/     # e.g., UserInfo.js, AvatarUploader.js
-│   │   │   └── services/       # e.g., profileApi.js for updates
-│   │   └── orders/             # Order history and tracking
-│   │       ├── screens/        # e.g., OrdersScreen.js, OrderDetail.js
-│   │       ├── components/     # e.g., OrderSummary.js, TrackingMap.js
-│   │       └── services/       # e.g., ordersApi.js for retrieval
-│   ├── shared/                 # Reusable elements across features
-│   │   ├── components/         # e.g., Button.js, Modal.js, Loader.js
-│   │   ├── hooks/              # e.g., useApi.js for generic fetching
-│   │   ├── utils/              # e.g., helpers.js for date formatting, validation.js
-│   │   ├── constants/          # e.g., enums.js for statuses (e.g., OrderStatus), strings.js for i18n
-│   │   └── types/              # Global types (if using TypeScript)
-│   ├── api/                    # Central API client (e.g., api.js with Axios setup)
-│   ├── assets/                 # Static files
-│   │   ├── images/             # Product images, icons, logos
-│   │   ├── fonts/              # Custom fonts for branding
-│   │   └── lottie/             # Animations (e.g., loading spinners for cart)
-│   ├── navigation/             # Routing logic
-│   │   ├── AppNavigator.js     # Main navigator
-│   │   ├── AuthStack.js        # Pre-login routes
-│   │   └── MainStack.js        # Post-login tabs/stacks
-│   ├── store/                  # State management (e.g., Redux or Zustand)
-│   │   ├── slices/             # e.g., userSlice.js, cartSlice.js
-│   │   └── store.js            # Root store config
-│   ├── config/                 # App-wide configs (e.g., theme.js for styles, index.js for exports)
-│   └── App.js                  # Root component entry
-├── .env                        # Environment variables (e.g., API keys; don't commit)
-├── .env.example                # Template for vars
-├── .eslintrc.js                # Linting rules
-├── .prettierrc.js              # Formatting config
-├── babel.config.js             # Babel setup
-├── index.js                    # App entry point
-├── package.json                # Dependencies and scripts
-├── tsconfig.json               # TypeScript config (optional)
-└── README.md                   # Project docs and setup instructions
 
 
 
