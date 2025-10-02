@@ -55,19 +55,19 @@ Now i have a bigger infracstructure for thiss app
 
 ### Metoda 1: Cu Docker (Recomandat)
 
-1. **Asigură-te că ai Docker instalat:**
+1. **Asigură-te că ai Docker instalat:
    ```bash
    docker --version
    docker-compose --version
    ```
 
-2. **Clonează și navighează în proiect:**
+2. **Clonează și navighează în proiect:
    ```bash
    git clone <repository-url>
    cd MyApp
    ```
 
-3. **Pornește toate serviciile:**
+3. **Pornește toate serviciile:
    ```bash
    docker-compose up -d
    ```
@@ -82,31 +82,31 @@ Now i have a bigger infracstructure for thiss app
    docker-compose exec react-native-app npm run android
    ```
 
-6. **Pentru iOS (necesită macOS):**
+6. **Pentru iOS (necesită macOS):
    ```bash
    docker-compose exec react-native-app npm run ios
    ```
 
 ### Metoda 2: Dezvoltare locală
 
-1. **Instalează dependențele:**
+1. **Instalează dependențele:
    ```bash
    npm install
    # sau
    yarn install
    ```
 
-2. **Pentru iOS, instalează pod dependencies:**
+2. **Pentru iOS, instalează pod dependencies:
    ```bash
    cd ios && pod install && cd ..
    ```
 
-3. **Pornește Metro bundler:**
+3. **Pornește Metro bundler:
    ```bash
    npm start
    ```
 
-4. **În alt terminal, rulează pe platformă:**
+4. **În alt terminal, rulează pe platformă:
    ```bash
    # Android
    npm run android
